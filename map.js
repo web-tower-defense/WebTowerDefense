@@ -8,7 +8,7 @@ var onProgress = function ( xhr ) {
 
 var onError = function ( xhr ) { };
 
-function loadBuilding(building, unitLen){
+function loadBuilding(building){
 
 	var mtlLoader = new THREE.MTLLoader();
 
@@ -30,30 +30,36 @@ function loadBuilding(building, unitLen){
 			for(var j = 0; j < building.positions.length; j++){
 				var instance = object.clone();
 				console.log("positions : "+building.positions[j]);
-				instance.position.set( 
-					building.positions[j][0]*unitLen,
+				var pos=new Pos(building.positions[j][0]*game_data.unitLen,
 					0,
-					-building.positions[j][1]*unitLen
+					-building.positions[j][1]*game_data.unitLen);
+				instance.position.set( 
+					pos.x,
+					pos.y,
+					pos.z
 				);
+				
 				instance.unitID = building.unitIDs[j];
     			scene.add( instance );
 
     			var new_building = new Building();
     			new_building.mesh = instance;
+				new_building.pos=pos;
     			new_building.unitID = instance.unitID;
     			new_building.curUnit = building.curUnits[j];
     			new_building.maxUnit = building.maxUnits[j];
 
     			var capacity_text = createTextMesh(new_building.curUnit.toString()+"/"+new_building.maxUnit.toString());
     			capacity_text.position.set( 
-					building.positions[j][0]*unitLen,
-					5,
-					-building.positions[j][1]*unitLen
+					pos.x,
+					pos.y+5,
+					pos.z
 				);
 				capacity_text.selectable = false;
 				capacity_text.dynamic = true;
     			scene.add( capacity_text );
-
+				//scene.remove( capacity_text );
+				//scene.add( capacity_text );
     			new_building.textMesh = capacity_text;
     			game_data.buildings.push(new_building);
 			}
@@ -65,13 +71,13 @@ function loadBuilding(building, unitLen){
 function loadMap(file){
 	$.getJSON(file, function(data) {
     	//console.log(data);
-    	var unitLen = data.mapUnitLen;
+		game_data.unitLen=data.mapUnitLen;
     	var width = data.mapWidth;
     	var height = data.mapHeight;
 
     	var textureLoader = new THREE.TextureLoader();
 
-		var geometry = new THREE.PlaneGeometry( width*unitLen, height*unitLen, width, height);
+		var geometry = new THREE.PlaneGeometry( width*game_data.unitLen, height*game_data.unitLen, width, height);
 		geometry.faceVertexUvs[0] = [];
 		for(var i = 0; i < geometry.faces.length; i++){
 			geometry.faceVertexUvs[0].push([
@@ -92,8 +98,8 @@ function loadMap(file){
 		var plane = new THREE.Mesh( geometry, material );
 		plane.rotation.x = Math.PI / 2;
 		plane.position.y = -1;
-		plane.position.x = width*unitLen/2;
-		plane.position.z = -height*unitLen/2;
+		plane.position.x = width*game_data.unitLen/2;
+		plane.position.z = -height*game_data.unitLen/2;
 		scene.add( plane );
 		
 		
@@ -112,19 +118,8 @@ function loadMap(file){
 					data.models[i].maxUnits.push(data.buildings[j].maxUnit);
 				}
 			}
-			loadBuilding(data.models[i], unitLen);
+			loadBuilding(data.models[i]);
 			
-		}
-
-		for(var i = 0; i < data.paths.length; i++){
-			console.log("path:"+data.paths[i][0]+","+data.paths[i][1]);
-			if(data.paths[i][0]>=game_data.buildings.length||data.paths[i][1]>=game_data.buildings.length){
-				console.log("path set error,building not exist!!");
-			}else{
-				game_data.buildings[data.paths[i][0]].path.push(data.paths[i][1]);
-				game_data.buildings[data.paths[i][1]].path.push(data.paths[i][0]);
-			}
-
 		}
 	});
 
