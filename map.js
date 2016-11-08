@@ -38,6 +38,13 @@ function loadBuilding(building, unitLen){
 				instance.unitID = building.unitIDs[j];
     			scene.add( instance );
 
+    			var new_building = new Building();
+    			new_building.mesh = instance;
+    			new_building.unitID = instance.unitID;
+    			new_building.curUnit = building.curUnits[j];
+    			new_building.maxUnit = building.maxUnits[j];
+    			game_data.buildings.push(new_building);
+
     			var capacity_text = createText("10/10");
     			capacity_text.position.set( 
 					building.positions[j][0]*unitLen,
@@ -93,17 +100,20 @@ function loadMap(file){
 			building.id=data.buildings[i].id;
 			building.name=data.buildings[i].name;
 			building.owner=data.buildings[i].owner;
-			game_data.buildings.push(building);
 			//console.log("game_data.buildings.push(building)");
 		}
 		
 		for(var i = 0; i < data.models.length; i++){
 			data.models[i].positions = [];
 			data.models[i].unitIDs = [];
+			data.models[i].curUnits = [];
+			data.models[i].maxUnits = [];
 			for(var j = 0; j < data.buildings.length; j++){
 				if(data.models[i].name === data.buildings[j].name){
 					data.models[i].positions.push(data.buildings[j].position);
 					data.models[i].unitIDs.push(data.buildings[j].id);
+					data.models[i].curUnits.push(data.buildings[j].curUnit);
+					data.models[i].maxUnits.push(data.buildings[j].maxUnit);
 				}
 			}
 			loadBuilding(data.models[i], unitLen);
