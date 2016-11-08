@@ -7,6 +7,7 @@ function Building(){
 	this.growthSpeed = 1;
 	this.mesh = 0;
 	this.textMesh = 0;
+	this.path=[];
 }
 
 Building.prototype.grow = function(){
