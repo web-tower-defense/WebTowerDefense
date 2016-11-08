@@ -37,6 +37,15 @@ function loadBuilding(building, unitLen){
 				);
 				instance.unitID = building.unitIDs[j];
     			scene.add( instance );
+
+    			var capacity_text = createText("10/10");
+    			capacity_text.position.set( 
+					building.positions[j][0]*unitLen,
+					5,
+					-building.positions[j][1]*unitLen
+				);
+				capacity_text.selectable = false;
+    			scene.add( capacity_text );
 			}
 
 		}, onProgress, onError );

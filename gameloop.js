@@ -6,9 +6,9 @@ function game_update(){
 		//console.log(game_data.buildings[i].name);
 		//console.log(game_data.buildings[i].owner);
 		game_data.buildings[i].curUnit++;
-		console.log(game_data.buildings[i].curUnit);
+		//console.log(game_data.buildings[i].curUnit);
 	}
-	console.log("update");
+	//console.log("update");
 }
 
 function main_loop() {

@@ -142,3 +142,53 @@ var handleWheel = function (e){
         if(camera.position.y > 1 )camera.position.y += e.originalEvent.wheelDelta/40;
     }
 }
+
+function rayCast(){
+	raycaster.setFromCamera( mouse, camera );
+	//console.log("len : " + scene.children.length);
+	var intersects = raycaster.intersectObjects( scene.children, true );
+	//console.log("len : " + intersects.length);
+	if ( intersects.length > 0 ) {
+		cur_intersected = intersects[ 0 ].object;
+		intersected_point = intersects[ 0 ].point;
+
+		while(cur_intersected.parent != scene){
+			//console.log("name : " + cur_intersected.name);
+			cur_intersected = cur_intersected.parent;
+		}
+		//console.log("name : " + cur_intersected.name);
+		if ( prev_intersected != cur_intersected ) {
+			if ( prev_intersected ) {
+				//prev_intersected.material.emissive.setHex( prev_intersected.currentHex );
+			}
+			//cur_intersected.currentHex = cur_intersected.material.emissive.getHex();
+			//cur_intersected.material.emissive.setHex( 0x0000ff );
+			
+			//console.log(cur_intersected.position);
+			selectionLight.position.x = cur_intersected.position.x;
+			selectionLight.position.y = cur_intersected.position.y;
+			selectionLight.position.z = cur_intersected.position.z;
+			selectionLight.matrixWorldNeedsUpdate = true;
+			selectionLight.visible = true;
+
+			cur_intersected.traverse(function(child){
+				if(child.hasOwnProperty("material")){
+					if(child.material.hasOwnProperty("emissive")){
+						//child.material.emissive.setHex( 0x0000ff );
+						//child.material.emissive.intensity = 5.0;
+					}
+				}
+			});
+			prev_intersected = cur_intersected;
+			//console.log("name : " + prev_intersected.my_name);
+			//intersects[0].object.material.transparent = true;
+    		//intersects[0].object.material.opacity = 0.1;
+		}
+	} else {
+		//if ( prev_intersected ) prev_intersected.material.emissive.setHex( prev_intersected.currentHex );
+		prev_intersected = null;
+		cur_intersected = null;
+		selectionLight.visible = false;
+		intersected_point = null;
+	}
+}
