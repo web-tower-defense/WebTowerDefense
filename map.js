@@ -47,7 +47,6 @@ function loadMap(file){
 
 	$.getJSON(file, function(data) {
     	//console.log(data);
-    	
     	var unitLen = data.mapUnitLen;
     	var width = data.mapWidth;
     	var height = data.mapHeight;
@@ -78,12 +77,22 @@ function loadMap(file){
 		plane.position.x = width*unitLen/2;
 		plane.position.z = -height*unitLen/2;
 		scene.add( plane );
-
+		game_data.buildings=[];
+		
+		for(var i = 0; i < data.buildings.length; i++){
+			var building=new Building();
+			building.id=data.buildings[i].id;
+			building.name=data.buildings[i].name;
+			building.owner=data.buildings[i].owner;
+			game_data.buildings.push(building);
+			//console.log("game_data.buildings.push(building)");
+		}
+		
 		for(var i = 0; i < data.models.length; i++){
 			data.models[i].positions = [];
 			data.models[i].unitIDs = [];
 			for(var j = 0; j < data.buildings.length; j++){
-				if(data.models[i].name === data.buildings[i].name){
+				if(data.models[i].name === data.buildings[j].name){
 					data.models[i].positions.push(data.buildings[j].position);
 					data.models[i].unitIDs.push(data.buildings[j].id);
 				}

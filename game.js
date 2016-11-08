@@ -18,8 +18,8 @@ function init() {
 	loadMap("map02.json");
 
 	animate();
+	main_loop();
 }
-//
 function animate() {
 	requestAnimationFrame( animate );
 	handleKeys();
