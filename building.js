@@ -6,10 +6,12 @@ function Building(){
 	this.curUnit = 0;
 	this.growthSpeed = 1;
 	this.mesh = 0;
+	this.textMesh = 0;
 }
 
 Building.prototype.grow = function(){
 	if(this.curUnit < this.maxUnit){
 		this.curUnit++;
+		this.textMesh.geometry = createTextGeo(this.curUnit.toString()+"/"+this.maxUnit.toString());
 	}
 }
