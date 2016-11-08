@@ -60,7 +60,7 @@ function loadBuilding(building, unitLen){
 }
 
 function loadMap(file){
-
+	game_data.buildings=[];
 	$.getJSON(file, function(data) {
     	//console.log(data);
     	var unitLen = data.mapUnitLen;
@@ -93,21 +93,10 @@ function loadMap(file){
 		plane.position.x = width*unitLen/2;
 		plane.position.z = -height*unitLen/2;
 		scene.add( plane );
-		game_data.buildings=[];
 		
-		for(var i = 0; i < data.buildings.length; i++){
-			var building=new Building();
-			building.id=data.buildings[i].id;
-			building.name=data.buildings[i].name;
-			building.owner=data.buildings[i].owner;
-			game_data.buildings.push(building);
-			//console.log("game_data.buildings.push(building)");
-		}
-		for(var i = 0; i < data.paths.length; i++){
-			console.log("path:"+data.paths[i][0]+","+data.paths[i][1]);
-			game_data.buildings[data.paths[i][0]].path.push(data.paths[i][1]);
-			game_data.buildings[data.paths[i][1]].path.push(data.paths[i][0]);
-		}
+		
+
+
 		for(var i = 0; i < data.models.length; i++){
 			data.models[i].positions = [];
 			data.models[i].unitIDs = [];
@@ -123,6 +112,17 @@ function loadMap(file){
 			}
 			loadBuilding(data.models[i], unitLen);
 			
+		}
+
+		for(var i = 0; i < data.paths.length; i++){
+			console.log("path:"+data.paths[i][0]+","+data.paths[i][1]);
+			if(data.paths[i][0]>=game_data.buildings.length||data.paths[i][1]>=game_data.buildings.length){
+				console.log("path set error,building not exist!!");
+			}else{
+				game_data.buildings[data.paths[i][0]].path.push(data.paths[i][1]);
+				game_data.buildings[data.paths[i][1]].path.push(data.paths[i][0]);
+			}
+
 		}
 	});
 

@@ -10,8 +10,11 @@ function game_update(){
 	}
 	//console.log("update");
 }
-
+function game_init(){
+	game_data.units=[];
+}
 function main_loop() {
 	console.log("mainloop start");
+	game_init();
 	var timer = setInterval(game_update, 500);
 }
