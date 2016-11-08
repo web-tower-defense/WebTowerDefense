@@ -12,6 +12,7 @@ function game_update(){
 }
 function game_init(){
 	game_data.units=[];
+	game_data.buildings=[];
 }
 function main_loop() {
 	console.log("mainloop start");

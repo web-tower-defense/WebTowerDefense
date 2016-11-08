@@ -60,7 +60,6 @@ function loadBuilding(building, unitLen){
 }
 
 function loadMap(file){
-	game_data.buildings=[];
 	$.getJSON(file, function(data) {
     	//console.log(data);
     	var unitLen = data.mapUnitLen;
