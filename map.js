@@ -43,16 +43,19 @@ function loadBuilding(building, unitLen){
     			new_building.unitID = instance.unitID;
     			new_building.curUnit = building.curUnits[j];
     			new_building.maxUnit = building.maxUnits[j];
-    			game_data.buildings.push(new_building);
 
-    			var capacity_text = createText("10/10");
+    			var capacity_text = createTextMesh(new_building.curUnit.toString()+"/"+new_building.maxUnit.toString());
     			capacity_text.position.set( 
 					building.positions[j][0]*unitLen,
 					5,
 					-building.positions[j][1]*unitLen
 				);
 				capacity_text.selectable = false;
+				capacity_text.dynamic = true;
     			scene.add( capacity_text );
+
+    			new_building.textMesh = capacity_text;
+    			game_data.buildings.push(new_building);
 			}
 
 		}, onProgress, onError );
