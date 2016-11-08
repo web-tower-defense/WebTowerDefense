@@ -19,12 +19,16 @@
             "name": "base",
             "id": 0,
 			"owner": 0,
+            "curUnit": 0,
+            "maxUnit": 100,
             "position": [5,5]
         },
         {
             "name": "base",
             "id": 1,
 			"owner": 1,
+            "curUnit": 0,
+            "maxUnit": 100,
             "position": [10,10]
         }
     ],
