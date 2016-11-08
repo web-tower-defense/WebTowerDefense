@@ -87,7 +87,11 @@ function loadMap(file){
 			game_data.buildings.push(building);
 			//console.log("game_data.buildings.push(building)");
 		}
-		
+		for(var i = 0; i < data.paths.length; i++){
+			console.log("path:"+data.paths[i][0]+","+data.paths[i][1]);
+			game_data.buildings[data.paths[i][0]].path.push(data.paths[i][1]);
+			game_data.buildings[data.paths[i][1]].path.push(data.paths[i][0]);
+		}
 		for(var i = 0; i < data.models.length; i++){
 			data.models[i].positions = [];
 			data.models[i].unitIDs = [];

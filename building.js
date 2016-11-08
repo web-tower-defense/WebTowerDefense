@@ -5,4 +5,5 @@ function Building(){
 	this.curUnit = 0;
 	this.growthSpeed = 1;
 	this.mesh = 0;
+	this.path=[];
 }
