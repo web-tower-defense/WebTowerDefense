@@ -12,7 +12,7 @@ function game_update(){
 	for(var i = 0; i < game_data.buildings.length; i++){
 		//console.log(game_data.buildings[i].name);
 		//console.log(game_data.buildings[i].owner);
-		if(loop_times%10==0){
+		if(loop_times%4==0){
 			if(i>=1){
 				//game_data.buildings[i].target=0;
 				game_data.buildings[i].sent_unit();
@@ -22,7 +22,7 @@ function game_update(){
 			}
 
 		}
-		if(loop_times%6==0)game_data.buildings[i].update();
+		if(loop_times%10==0)game_data.buildings[i].update();
 		game_data.buildings[i].draw();
 		//console.log("building "+game_data.buildings[i].unitID+" unit : "+game_data.buildings[i].curUnit);
 	}
@@ -34,11 +34,8 @@ function game_update(){
 			game_data.units.pop();
 			if(i < game_data.units.length)game_data.units[i].update();
 		}
-		
 	}
-	for(var i = 0; i < game_data.units.length; i++){
-		
-	}	
+	//console.log("unit_num:"+game_data.units.length);
 	
 	//console.log("mousepos="+game_data.mouse_pos.x+","+game_data.mouse_pos.y+","+game_data.mouse_pos.z);
 	//console.log("campos="+camera.position.x+","+camera.position.y+","+camera.position.z);
@@ -52,5 +49,5 @@ function game_init(){
 function main_loop() {
 	console.log("mainloop start");
 	game_init();
-	var timer = setInterval(game_update,70);
+	var timer = setInterval(game_update,50);
 }

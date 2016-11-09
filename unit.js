@@ -19,7 +19,8 @@ Pos.prototype.unit_vec=function(){
 	var pos=new Pos(this.x,this.y,this.z);
 	pos=pos.mult(1.0/this.len());
 	return pos;
-}	
+}
+
 function Unit(x,y,z,_owner,_target){
 	this.die=false;
 	this.owner = _owner;
@@ -35,12 +36,15 @@ function Unit(x,y,z,_owner,_target){
 	scene.add(this.mesh);
 	this.target=_target;
 	this.pos=new Pos(x,y,z);
+	this.a=0;
+	this.b=0;
 	this.target_pos=game_data.buildings[this.target].pos;
 }
 Unit.prototype.check_collision = function(){
 		for(var i = 0; i < game_data.units.length; i++){
-				if(game_data.units[i].owner!==this.owner){
-					if(this.pos.sub(game_data.units[i].pos).len()<1.0){
+				var unit=game_data.units[i];
+				if(unit.owner!==this.owner&&unit.a==this.a&&unit.b==this.b){
+					if(this.pos.sub(unit.pos).len()<0.5){
 						this.die=true;
 						game_data.units[i].die=true;
 					}
@@ -49,7 +53,7 @@ Unit.prototype.check_collision = function(){
 }
 Unit.prototype.update = function(){
 	var del=this.target_pos.sub(this.pos);
-	if(del.len()<3.0){
+	if(del.len()<2.0){
 		this.die=true;
 		//console.log("unit die");
 		if(game_data.buildings[this.target].owner===this.owner){
@@ -67,7 +71,7 @@ Unit.prototype.update = function(){
 	}else{
 		//console.log("unit dis="+del.len());
 	}
-	this.pos=this.pos.add((del.unit_vec()).mult(1.2));
+	this.pos=this.pos.add((del.unit_vec()).mult(1.0));
 	this.check_collision();
 	this.mesh.position.set(this.pos.x,this.pos.y,this.pos.z);
 	//console.log("Unit.prototype.update pos="+this.pos.x.toString()+","+this.pos.y.toString()+","+this.pos.z.toString());

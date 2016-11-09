@@ -21,12 +21,19 @@ Building.prototype.grow = function(){
 	}
 }
 Building.prototype.draw = function(){
-	this.textMesh.geometry = createTextGeo(this.curUnit.toString()+"/"+this.maxUnit.toString());
+	this.textMesh.geometry = createTextGeo("P"+this.owner+":"+this.curUnit.toString()+"/"+this.maxUnit.toString());
 }
 Building.prototype.sent_unit = function(){
 	if(this.curUnit>0&&this.target!==-1&&this.target!==this.unitID){
 		this.curUnit--;
 		var unit=new Unit(this.pos.x,this.pos.y,this.pos.z,this.owner,this.target);
+		if(this.target>this.unitID){
+			unit.a=this.target;
+			unit.b=this.unitID;
+		}else{
+			unit.b=this.target;
+			unit.a=this.unitID;
+		}
 		game_data.units.push(unit);
 		//console.log("Building.prototype.sent_unit");
 		//console.log("pos="+this.pos.x.toString()+","+this.pos.y.toString()+","+this.pos.z.toString());
