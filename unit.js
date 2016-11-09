@@ -23,7 +23,13 @@ Pos.prototype.unit_vec=function(){
 function Unit(x,y,z,_owner,_target){
 	this.die=false;
 	this.owner = _owner;
-	this.mesh = createTextMesh("o");
+	if(this.owner==0){
+		this.mesh = createTextMesh("o");
+	}else if(this.owner==1){
+		this.mesh = createTextMesh("x");
+	}else if(this.owner==2){
+		this.mesh = createTextMesh("y");
+	}	
 	this.mesh.selectable = false;
 	this.mesh.dynamic = true;
 	scene.add(this.mesh);
@@ -31,15 +37,32 @@ function Unit(x,y,z,_owner,_target){
 	this.pos=new Pos(x,y,z);
 	this.target_pos=game_data.buildings[this.target].pos;
 }
+Unit.prototype.check_collision = function(){
+		for(var i = 0; i < game_data.units.length; i++){
+				if(game_data.units[i].owner!==this.owner){
+					if(this.pos.sub(game_data.units[i].pos).len()<1.0){
+						this.die=true;
+						game_data.units[i].die=true;
+					}
+				}
+		}	
+}
 Unit.prototype.update = function(){
 	var del=this.target_pos.sub(this.pos);
 	if(del.len()<4.0){
 		this.die=true;
-		console.log("unit die");
+		//console.log("unit die");
+		if(game_data.buildings[this.target].owner===this.owner){
+			//console.log(game_data.buildings[this.target].owner+","+this.owner);
+			game_data.buildings[this.target].curUnit++;
+		}else{
+			game_data.buildings[this.target].curUnit--;
+		}
 	}else{
 		//console.log("unit dis="+del.len());
 	}
-	this.pos=this.pos.add((del.unit_vec()).mult(2.0));
+	this.pos=this.pos.add((del.unit_vec()).mult(1.5));
+	this.check_collision();
 	this.mesh.position.set(this.pos.x,this.pos.y,this.pos.z);
 	//console.log("Unit.prototype.update pos="+this.pos.x.toString()+","+this.pos.y.toString()+","+this.pos.z.toString());
 }

@@ -7,7 +7,7 @@ var onProgress = function ( xhr ) {
 };
 
 var onError = function ( xhr ) { };
-
+var tmp_data;
 function loadBuilding(building){
 
 	var mtlLoader = new THREE.MTLLoader();
@@ -48,7 +48,7 @@ function loadBuilding(building){
     			new_building.unitID = instance.unitID;
     			new_building.curUnit = building.curUnits[j];
     			new_building.maxUnit = building.maxUnits[j];
-
+				new_building.owner=tmp_data.buildings[j].owner;
     			var capacity_text = createTextMesh(new_building.curUnit.toString()+"/"+new_building.maxUnit.toString());
     			capacity_text.position.set( 
 					pos.x,
@@ -71,6 +71,7 @@ function loadBuilding(building){
 function loadMap(file){
 	$.getJSON(file, function(data) {
     	//console.log(data);
+		tmp_data=data;
 		game_data.unitLen=data.mapUnitLen;
     	var width = data.mapWidth;
     	var height = data.mapHeight;
