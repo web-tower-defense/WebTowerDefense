@@ -60,7 +60,7 @@ function onDocumentMouseMove( event ) {
 		dragCurve.visible = true;
 	}
 }
-
+var input=[];
 function handleKeyDown(event) {
   //alert(event.key);
   currentlyPressedKeys[event.key] = true;
@@ -68,8 +68,16 @@ function handleKeyDown(event) {
 
 function handleKeyUp(event) {
   currentlyPressedKeys[event.key] = false;
+  input[event.key] = true;
 }
-
+function get_input(key) {
+	if(input[key]=== true){
+		input[key]=false;
+		return true;
+	}
+	return false;
+}	
+var selected=-1;
 function handleKeys() {
 	if (currentlyPressedKeys["a"] == true) {// Left cursor key
 		if(camera.position.x > -200 )camera.position.x -= 1;
@@ -87,6 +95,30 @@ function handleKeys() {
 		if(camera.position.z > -200 )camera.position.z -= 1;
 		if(camera.position.z == 0){
 			camera.position.z = -1;
+		}
+	}
+	if (get_input("0")) {// Down cursor key
+		if(selected===-1){
+			selected=0;
+		}else{
+			game_data.commands.push(new Command(selected,0));
+			selected=-1;
+		}
+	}
+	if (get_input("1")) {// Down cursor key
+		if(selected===-1){
+			selected=1;
+		}else{
+			game_data.commands.push(new Command(selected,1));
+			selected=-1;
+		}
+	}
+	if (get_input("2")) {// Down cursor key
+		if(selected===-1){
+			selected=2;
+		}else{
+			game_data.commands.push(new Command(selected,2));
+			selected=-1;
 		}
 	}
 }
@@ -123,6 +155,7 @@ function handleMouseUp(){
 		//Create the final Object3d to add to the scene
 		dragCurve.geometry = geometry;*/
 	}
+	
 	dragSource = null;
 	dragTarget = null;
 	dragCurve.visible = false;

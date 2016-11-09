@@ -24,14 +24,14 @@ Building.prototype.draw = function(){
 	this.textMesh.geometry = createTextGeo(this.curUnit.toString()+"/"+this.maxUnit.toString());
 }
 Building.prototype.sent_unit = function(){
-	if(this.curUnit>0){
+	if(this.curUnit>0&&this.target!==-1&&this.target!==this.unitID){
 		this.curUnit--;
 		var unit=new Unit(this.pos.x,this.pos.y,this.pos.z,this.owner,this.target);
 		game_data.units.push(unit);
-		console.log("Building.prototype.sent_unit");
-		console.log("pos="+this.pos.x.toString()+","+this.pos.y.toString()+","+this.pos.z.toString());
+		//console.log("Building.prototype.sent_unit");
+		//console.log("pos="+this.pos.x.toString()+","+this.pos.y.toString()+","+this.pos.z.toString());
 	}else{
-		console.log("Building.prototype.sent_unit fail");
+		//console.log("Building.prototype.sent_unit fail");
 		//if(!(this.cur_Unit>0))console.log("this.cur_Unit<=0:"+this.curUnit.toString());
 		//if((this.target===-1))console.log("target="+this.target.toString());
 	}

@@ -76,6 +76,8 @@ function loadMap(file){
     	var width = data.mapWidth;
     	var height = data.mapHeight;
 
+	
+	
     	var textureLoader = new THREE.TextureLoader();
 
 		var geometry = new THREE.PlaneGeometry( width*game_data.unitLen, height*game_data.unitLen, width, height);

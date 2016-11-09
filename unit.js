@@ -49,19 +49,25 @@ Unit.prototype.check_collision = function(){
 }
 Unit.prototype.update = function(){
 	var del=this.target_pos.sub(this.pos);
-	if(del.len()<4.0){
+	if(del.len()<3.0){
 		this.die=true;
 		//console.log("unit die");
 		if(game_data.buildings[this.target].owner===this.owner){
 			//console.log(game_data.buildings[this.target].owner+","+this.owner);
 			game_data.buildings[this.target].curUnit++;
 		}else{
-			game_data.buildings[this.target].curUnit--;
+			if(game_data.buildings[this.target].curUnit==0){
+				game_data.buildings[this.target].owner=this.owner;
+			}else{
+				game_data.buildings[this.target].curUnit--;
+			}
+			
+			
 		}
 	}else{
 		//console.log("unit dis="+del.len());
 	}
-	this.pos=this.pos.add((del.unit_vec()).mult(1.5));
+	this.pos=this.pos.add((del.unit_vec()).mult(1.2));
 	this.check_collision();
 	this.mesh.position.set(this.pos.x,this.pos.y,this.pos.z);
 	//console.log("Unit.prototype.update pos="+this.pos.x.toString()+","+this.pos.y.toString()+","+this.pos.z.toString());
