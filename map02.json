@@ -34,8 +34,8 @@
             "name": "base",
             "id": 0,
 			"owner": 1,
-            "curUnit": 0,
-            "maxUnit": 10,
+            "curUnit": 5,
+            "maxUnit": 5,
             "position": [9,10]
         }
     ],
