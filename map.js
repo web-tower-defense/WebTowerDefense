@@ -33,12 +33,12 @@ function loadBuilding(building){
 				var pos=new Pos(building.positions[j][0]*game_data.unitLen,
 					0,
 					-building.positions[j][1]*game_data.unitLen);
-				instance.position.set( 
+				instance.position.set(
 					pos.x,
 					pos.y,
 					pos.z
 				);
-				
+
 				instance.unitID = building.unitIDs[j];
     			scene.add( instance );
 
@@ -49,8 +49,8 @@ function loadBuilding(building){
     			new_building.curUnit = building.curUnits[j];
     			new_building.maxUnit = building.maxUnits[j];
 				new_building.owner=tmp_data.buildings[j].owner;
-    			var capacity_text = createTextMesh(new_building.curUnit.toString()+"/"+new_building.maxUnit.toString());
-    			capacity_text.position.set( 
+    			var capacity_text = createTextMesh(new_building.curUnit.toString(), new_building.unitID);
+    			capacity_text.position.set(
 					pos.x,
 					pos.y+5,
 					pos.z
@@ -76,8 +76,8 @@ function loadMap(file){
     	var width = data.mapWidth;
     	var height = data.mapHeight;
 
-	
-	
+
+
     	var textureLoader = new THREE.TextureLoader();
 
 		var geometry = new THREE.PlaneGeometry( width*game_data.unitLen, height*game_data.unitLen, width, height);
@@ -86,15 +86,15 @@ function loadMap(file){
 			geometry.faceVertexUvs[0].push([
 				new THREE.Vector2( 0,0 ),
 				new THREE.Vector2( 0,1 ),
-				new THREE.Vector2( 1,1),    
-			    new THREE.Vector2( 1,0),    
+				new THREE.Vector2( 1,1),
+			    new THREE.Vector2( 1,0),
 			]);
-		}	
+		}
 		geometry.computeFaceNormals();
         geometry.dynamic = true;
-        geometry.uvsNeedUpdate = true;	
+        geometry.uvsNeedUpdate = true;
 		var material = new THREE.MeshPhongMaterial( {
-			map :textureLoader.load( "grass_green_d.jpg" ), 
+			map :textureLoader.load( "grass_green_d.jpg" ),
 			normalMap: textureLoader.load( "grass_green_n.jpg" ),
 			side: THREE.DoubleSide
 		});
@@ -104,7 +104,7 @@ function loadMap(file){
 		plane.position.x = width*game_data.unitLen/2;
 		plane.position.z = -height*game_data.unitLen/2;
 		scene.add( plane );
-		
+
 		for(var i = 0; i < data.buildings.length; i++){
 			var building=new Building();
 			building.id=data.buildings[i].id;
@@ -127,7 +127,7 @@ function loadMap(file){
 				}
 			}
 			loadBuilding(data.models[i]);
-			
+
 		}
 	});
 

@@ -21,7 +21,7 @@ Building.prototype.grow = function(){
 	}
 }
 Building.prototype.draw = function(){
-	this.textMesh.geometry = createTextGeo("P"+this.owner+":"+this.curUnit.toString()+"/"+this.maxUnit.toString());
+	this.textMesh.geometry = createTextGeo(this.curUnit.toString());
 }
 Building.prototype.sent_unit = function(){
 	if(this.curUnit>0&&this.target!==-1&&this.target!==this.unitID){

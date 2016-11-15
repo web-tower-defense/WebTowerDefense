@@ -3,7 +3,7 @@
     "mapUnitLen": 5,
     "mapWidth": 20,
     "mapHeight": 20,
-    "models": 
+    "models":
     [
         {
             "name": "base",
@@ -17,27 +17,26 @@
     [
         {
             "name": "base",
-            "id": 0,
+            "id": 1,
 			"owner": 0,
             "curUnit": 0,
-            "maxUnit": 100,
-            "position": [5,5]
-        },
-        {
-            "name": "base",
-            "id": 1,
-			"owner": 1,
-            "curUnit": 0,
-            "maxUnit": 100,
-            "position": [10,10]
+            "maxUnit": 10,
+            "position": [5,10]
         },
 		{
             "name": "base",
             "id": 2,
 			"owner": 1,
             "curUnit": 0,
-            "maxUnit": 100,
-            "position": [5,10]
+            "maxUnit": 10,
+            "position": [13,10]
+        },{
+            "name": "base",
+            "id": 0,
+			"owner": 1,
+            "curUnit": 0,
+            "maxUnit": 10,
+            "position": [9,10]
         }
     ],
     "paths":
