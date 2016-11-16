@@ -48,14 +48,14 @@ function loadBuilding(building){
     			new_building.unitID = instance.unitID;
     			new_building.curUnit = building.curUnits[j];
     			new_building.maxUnit = building.maxUnits[j];
-					new_building.owner=tmp_data.buildings[j].owner;
-    			var capacity_text = createTextMesh(new_building.curUnit.toString()+"/"+new_building.maxUnit.toString());
-					new_building.pos=pos;
+
+				new_building.owner=tmp_data.buildings[j].owner;
+    			var capacity_text = createTextMesh(new_building.curUnit.toString(), new_building.unitID);
     			capacity_text.position.set(
-						pos.x,
-						pos.y+5,
-						pos.z
-					);
+					pos.x,
+					pos.y+5,
+					pos.z
+				);
 				capacity_text.selectable = false;
 				capacity_text.dynamic = true;
     			scene.add( capacity_text );

@@ -22,12 +22,12 @@ Building.prototype.grow = function(){
 	}
 }
 Building.prototype.draw = function(){
-	var cur_str="P"+this.owner+":"+this.curUnit.toString()+"/"+this.maxUnit.toString();
+	var cur_str=this.curUnit.toString();
 
 	if(cur_str!==this.prev_str){
 		scene.remove(this.textMesh);
 		this.prev_str=cur_str;
-		this.textMesh = createTextMesh(this.prev_str);
+		this.textMesh =  createTextMesh(this.prev_str,this.unitID);
 		this.textMesh.selectable = false;
 		this.textMesh.dynamic = true;
 		//console.log("this pos="+this.pos.x+","+this.pos.y+","+this.pos.z);
@@ -37,8 +37,9 @@ Building.prototype.draw = function(){
 			this.pos.z
 		);
 		scene.add(this.textMesh);
-	}	
+	}
 	//this.textMesh.geometry = createTextGeo("P"+this.owner+":"+this.curUnit.toString()+"/"+this.maxUnit.toString());
+
 }
 Building.prototype.sent_unit = function(){
 	if(this.curUnit>0&&this.target!==-1&&this.target!==this.unitID){

@@ -55,13 +55,20 @@ function createTextGeo(input){
 	return textGeo;
 }
 
-function createTextMesh(input) {
-
+function createTextMesh(input, id) {
+	//console.log("this pos=");
 	//console.log("font : "+font);
-
+	var idColor;
+	if(id==0){
+		idColor = 0xf0f0f0;
+	}else if(id==1){
+		idColor = 0xff0000;
+	}else{
+		idColor = 0x0000ff;
+	}
 	var material = new THREE.MultiMaterial( [
-		new THREE.MeshPhongMaterial( { color: 0xffffff, shading: THREE.FlatShading } ), // front
-		new THREE.MeshPhongMaterial( { color: 0xffffff, shading: THREE.SmoothShading } ) // side
+		new THREE.MeshPhongMaterial( { color: idColor, shading: THREE.FlatShading } ), // front
+		new THREE.MeshPhongMaterial( { color: idColor, shading: THREE.SmoothShading } ) // side
 	] );
 
 	var textGeo = new THREE.TextGeometry( input, {
@@ -105,8 +112,8 @@ function createTextMesh(input) {
 	textMesh1.position.x = centerOffset;
 	textMesh1.position.y = hover;
 	textMesh1.position.z = 0;
-	textMesh1.rotation.x = -Math.PI * 0.5;
-	textMesh1.rotation.y = Math.PI * 2;
+	// textMesh1.rotation.x = Math.PI ;
+	// textMesh1.rotation.y = Math.PI ;
 
 	return textMesh1;
 	//scene.add( textMesh1 );
