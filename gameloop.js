@@ -23,9 +23,9 @@ function game_update(){
 
 		}
 		if(loop_times%10==0)game_data.buildings[i].update();
-		game_data.buildings[i].draw();
+			game_data.buildings[i].draw();
 		//console.log("building "+game_data.buildings[i].unitID+" unit : "+game_data.buildings[i].curUnit);
-	}
+		}
 	for(var i = 0; i < game_data.units.length; i++){
 		game_data.units[i].update();
 		if(game_data.units[i].die==true){
@@ -36,7 +36,7 @@ function game_update(){
 		}
 	}
 	//console.log("unit_num:"+game_data.units.length);
-	
+
 	//console.log("mousepos="+game_data.mouse_pos.x+","+game_data.mouse_pos.y+","+game_data.mouse_pos.z);
 	//console.log("campos="+camera.position.x+","+camera.position.y+","+camera.position.z);
 	//console.log("update");
