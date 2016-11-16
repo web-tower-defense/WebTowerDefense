@@ -30,7 +30,7 @@ function Unit(x,y,z,_owner,_target){
 		this.mesh = createTextMesh("x");
 	}else if(this.owner==2){
 		this.mesh = createTextMesh("y");
-	}	
+	}
 	this.mesh.selectable = false;
 	this.mesh.dynamic = true;
 	scene.add(this.mesh);
@@ -49,7 +49,7 @@ Unit.prototype.check_collision = function(){
 						game_data.units[i].die=true;
 					}
 				}
-		}	
+		}
 }
 Unit.prototype.update = function(){
 	var del=this.target_pos.sub(this.pos);
@@ -65,8 +65,8 @@ Unit.prototype.update = function(){
 			}else{
 				game_data.buildings[this.target].curUnit--;
 			}
-			
-			
+
+
 		}
 	}else{
 		//console.log("unit dis="+del.len());
@@ -78,4 +78,5 @@ Unit.prototype.update = function(){
 }
 Unit.prototype.remove = function(){
 	scene.remove(this.mesh);
+	this.mesh.geometry.dispose();
 }

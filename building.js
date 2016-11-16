@@ -26,11 +26,13 @@ Building.prototype.draw = function(){
 
 	if(cur_str!==this.prev_str){
 		scene.remove(this.textMesh);
+		this.textMesh.geometry.dispose();
+		//this.textMesh.material.dispose();
 		this.prev_str=cur_str;
 		this.textMesh =  createTextMesh(this.prev_str,this.unitID);
 		this.textMesh.selectable = false;
 		this.textMesh.dynamic = true;
-		//console.log("this pos="+this.pos.x+","+this.pos.y+","+this.pos.z);
+		console.log("this pos="+this.pos.x+","+this.pos.y+","+this.pos.z);
 		this.textMesh.position.set(
 			this.pos.x,
 			this.pos.y+5,
