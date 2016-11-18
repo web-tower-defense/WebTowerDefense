@@ -25,12 +25,13 @@ function Unit(x,y,z,_owner,_target){
 	this.die=false;
 	this.owner = _owner;
 	if(this.owner==0){
-		this.mesh = createTextMesh("o");
+		this.mesh = createTextMesh("o",this.owner);
 	}else if(this.owner==1){
-		this.mesh = createTextMesh("x");
+		this.mesh = createTextMesh("x",this.owner);
 	}else if(this.owner==2){
-		this.mesh = createTextMesh("y");
+		this.mesh = createTextMesh("y",this.owner);
 	}
+	//console.log("ss");
 	this.mesh.selectable = false;
 	this.mesh.dynamic = true;
 	scene.add(this.mesh);

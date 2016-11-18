@@ -13,14 +13,7 @@ function game_update(){
 		//console.log(game_data.buildings[i].name);
 		//console.log(game_data.buildings[i].owner);
 		if(loop_times%4==0){
-			if(i>=1){
-				//game_data.buildings[i].target=0;
-				game_data.buildings[i].sent_unit();
-			}else if(game_data.buildings.length>1){
-				//game_data.buildings[i].target=1;
-				game_data.buildings[i].sent_unit();
-			}
-
+			game_data.buildings[i].sent_unit();
 		}
 		if(loop_times%10==0)game_data.buildings[i].update();
 			game_data.buildings[i].draw();
@@ -35,7 +28,7 @@ function game_update(){
 			if(i < game_data.units.length)game_data.units[i].update();
 		}
 	}
-	//console.log("unit_num:"+game_data.units.length);
+	//console.log("mouse_pos:"+mouse_pos.x+","+mouse_pos.y+","+mouse_pos.z);
 
 	//console.log("mousepos="+game_data.mouse_pos.x+","+game_data.mouse_pos.y+","+game_data.mouse_pos.z);
 	//console.log("campos="+camera.position.x+","+camera.position.y+","+camera.position.z);

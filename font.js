@@ -1,3 +1,4 @@
+var player_color=[0xf0f0f0, 0xff0000, 0x0000ff]
 var text = "three.js",
 	height = 1,
 	size = 2,
@@ -58,14 +59,8 @@ function createTextGeo(input){
 function createTextMesh(input, id) {
 	//console.log("this pos=");
 	//console.log("font : "+font);
-	var idColor;
-	if(id==0){
-		idColor = 0xf0f0f0;
-	}else if(id==1){
-		idColor = 0xff0000;
-	}else{
-		idColor = 0x0000ff;
-	}
+	var idColor = player_color[id];
+
 	var material = new THREE.MultiMaterial( [
 		new THREE.MeshPhongMaterial( { color: idColor, shading: THREE.FlatShading } ), // front
 		new THREE.MeshPhongMaterial( { color: idColor, shading: THREE.SmoothShading } ) // side
@@ -108,7 +103,8 @@ function createTextMesh(input, id) {
 		}
 	}
 	var centerOffset = -0.5 * ( textGeo.boundingBox.max.x - textGeo.boundingBox.min.x );
-	var textMesh1 = new THREE.Mesh( textGeo, material );
+	var textMesh1 = new THREE.Mesh( textGeo);
+	textMesh1.material=material;
 	textMesh1.position.x = centerOffset;
 	textMesh1.position.y = hover;
 	textMesh1.position.z = 0;

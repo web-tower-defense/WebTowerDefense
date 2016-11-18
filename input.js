@@ -1,7 +1,7 @@
 var dragSource=null, dragTarget=null, dragCurve;
-
+var mouse_pos=new Pos(0,0,0);
 function update(){
-	
+
 }
 
 function initInput(){
@@ -42,7 +42,7 @@ function onWindowResize() {
 function onDocumentMouseMove( event ) {
 	event.preventDefault();
 	mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
-	mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;	
+	mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
 
 	if(dragSource != null){
 		//console.log(intersected_point);
@@ -76,7 +76,7 @@ function get_input(key) {
 		return true;
 	}
 	return false;
-}	
+}
 var selected=-1;
 function handleKeys() {
 	if (currentlyPressedKeys["a"] == true) {// Left cursor key
@@ -130,14 +130,35 @@ function onDragStart(){
 function clickObject(obj){
 
 }
-
+var seleted_id=-1;
 function handleMouseDown(){
 	//console.log("down");
 	dragSource = cur_intersected;
 
+
+
+	for(var i=0;i<game_data.buildings.length;i++){
+			if(mouse_pos.sub(game_data.buildings[i].pos).len()<1.0){
+				seleted_id=i;
+			}
+	}
+
+
 }
 
 function handleMouseUp(){
+	if(seleted_id!==-1){
+		var target_id=-1;
+		for(var i=0;i<game_data.buildings.length;i++){
+				if(mouse_pos.sub(game_data.buildings[i].pos).len()<1.0){
+					target_id=i;
+				}
+		}
+		if(target_id!==-1)game_data.commands.push(new Command(seleted_id,target_id));
+	}
+
+
+
 	//console.log("up");
 	dragTarget = cur_intersected;
 	console.log("drag : "+dragSource.unitID+" to "+dragTarget.unitID);
@@ -155,11 +176,11 @@ function handleMouseUp(){
 		//Create the final Object3d to add to the scene
 		dragCurve.geometry = geometry;*/
 	}
-	
+
 	dragSource = null;
 	dragTarget = null;
 	dragCurve.visible = false;
-}	
+}
 
 function handleClick(){
 	console.log("click");
@@ -196,8 +217,13 @@ function rayCast(){
 			}
 			//cur_intersected.currentHex = cur_intersected.material.emissive.getHex();
 			//cur_intersected.material.emissive.setHex( 0x0000ff );
-			
-			//console.log(cur_intersected.position);
+
+			console.log(cur_intersected.position);
+			mouse_pos=new Pos(
+				cur_intersected.position.x,
+				cur_intersected.position.y,
+				cur_intersected.position.z);
+
 			selectionLight.position.x = cur_intersected.position.x;
 			selectionLight.position.y = cur_intersected.position.y;
 			selectionLight.position.z = cur_intersected.position.z;

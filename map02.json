@@ -17,26 +17,26 @@
     [
         {
             "name": "base",
-            "id": 1,
-			"owner": 0,
-            "curUnit": 0,
-            "maxUnit": 10,
+            "id": 0,
+            "owner": 1,
+            "curUnit": 10,
+            "maxUnit": 100,
             "position": [5,10]
         },
 		{
             "name": "base",
-            "id": 2,
-			"owner": 1,
-            "curUnit": 0,
-            "maxUnit": 10,
-            "position": [13,10]
+            "id": 1,
+      			"owner": 0,
+            "curUnit": 10,
+            "maxUnit": 100,
+            "position": [9,10]
         },{
             "name": "base",
-            "id": 0,
-			"owner": 1,
-            "curUnit": 5,
-            "maxUnit": 5,
-            "position": [9,10]
+            "id": 2,
+            "owner": 2,
+            "curUnit": 10,
+            "maxUnit": 100,
+            "position": [13,10]
         }
     ],
     "paths":

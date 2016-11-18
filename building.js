@@ -16,8 +16,9 @@ Building.prototype.update = function(){
 	this.grow();
 }
 Building.prototype.grow = function(){
-	if(this.curUnit < this.maxUnit){
+	if(this.curUnit < this.maxUnit&&this.owner>0){
 		this.curUnit++;
+		//console.log("this pos="+this.pos.x+","+this.pos.y+","+this.pos.z);
 		//this.textMesh.geometry = createTextGeo(this.curUnit.toString()+"/"+this.maxUnit.toString());
 	}
 }
@@ -29,10 +30,10 @@ Building.prototype.draw = function(){
 		this.textMesh.geometry.dispose();
 		//this.textMesh.material.dispose();
 		this.prev_str=cur_str;
-		this.textMesh =  createTextMesh(this.prev_str,this.unitID);
+		this.textMesh =  createTextMesh(this.prev_str,this.owner);
 		this.textMesh.selectable = false;
 		this.textMesh.dynamic = true;
-		console.log("this pos="+this.pos.x+","+this.pos.y+","+this.pos.z);
+		//console.log("this pos="+this.pos.x+","+this.pos.y+","+this.pos.z);
 		this.textMesh.position.set(
 			this.pos.x,
 			this.pos.y+5,
@@ -44,7 +45,8 @@ Building.prototype.draw = function(){
 
 }
 Building.prototype.sent_unit = function(){
-	if(this.curUnit>0&&this.target!==-1&&this.target!==this.unitID){
+	//console.log("try sent_unit");
+	if(this.curUnit>0&&this.target!==-1&&this.target!==this.unitID){//
 		this.curUnit--;
 		var unit=new Unit(this.pos.x,this.pos.y,this.pos.z,this.owner,this.target);
 		if(this.target>this.unitID){
@@ -55,7 +57,7 @@ Building.prototype.sent_unit = function(){
 			unit.a=this.unitID;
 		}
 		game_data.units.push(unit);
-		//console.log("Building.prototype.sent_unit");
+		console.log("Building.prototype.sent_unit");
 		//console.log("pos="+this.pos.x.toString()+","+this.pos.y.toString()+","+this.pos.z.toString());
 	}else{
 		//console.log("Building.prototype.sent_unit fail");

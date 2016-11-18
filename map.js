@@ -22,13 +22,18 @@ function loadBuilding(building){
 			//object.position.y = - 10;
 			//object.scale.set(10,10,10);
 			object.name = "root";
-			//console.log("~name : " + object.name);
+			console.log("~name : " + object.name);
 			//scene.add( object );
 
 			console.log("building.positions.length : "+building.positions.length);
 
 			for(var j = 0; j < building.positions.length; j++){
 				var instance = object.clone();
+				var material = new THREE.MultiMaterial( [
+					new THREE.MeshPhongMaterial( { color: player_color[tmp_data.buildings[j].owner], shading: THREE.FlatShading } ), // front
+					new THREE.MeshPhongMaterial( { color: player_color[tmp_data.buildings[j].owner], shading: THREE.SmoothShading } ) // side
+				] );
+
 				console.log("positions : "+building.positions[j]);
 				var pos=new Pos(building.positions[j][0]*game_data.unitLen,
 					0,
@@ -40,12 +45,13 @@ function loadBuilding(building){
 				);
 
 				instance.unitID = building.unitIDs[j];
+				instance.material=material;
     			scene.add( instance );
 
     			var new_building = new Building();
     			new_building.mesh = instance;
 					new_building.pos=pos;
-    			new_building.unitID = instance.unitID;
+    			new_building.unitID = j;//instance.unitID;
     			new_building.curUnit = building.curUnits[j];
     			new_building.maxUnit = building.maxUnits[j];
 
